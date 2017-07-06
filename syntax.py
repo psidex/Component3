@@ -53,23 +53,40 @@ class PythonSyntaxHighlighter(QSyntaxHighlighter):
         # Custom rules
         # self.highlighting_rules.append({"pattern":pattern, "format":format})
 
-        # BELOW IS NOT WORKING (try putting this in editor: "abc" abc" abc ) (its too greedy)
         single_line_text_format = QTextCharFormat()
         slt_colour = QColor()
         slt_colour.setRgb(124, 179, 41)
         single_line_text_format.setForeground(slt_colour)
-        slt_pattern = QRegExp( '\"(.*)\"' )
-        self.highlighting_rules.append({"pattern":slt_pattern, "format":single_line_text_format})
-        slt_pattern = QRegExp( "\'(.*)\'" )
-        self.highlighting_rules.append({"pattern":slt_pattern, "format":single_line_text_format})
+
+        slt_pattern1 = QRegExp( '\".*\"' )
+        slt_pattern1.setMinimal(True)  # Don't be greedy :(
+        self.highlighting_rules.append({"pattern":slt_pattern1, "format":single_line_text_format})
+
+        slt_pattern2 = QRegExp( "\'(.*)\'" )
+        slt_pattern2.setMinimal(True)
+        self.highlighting_rules.append({"pattern":slt_pattern2, "format":single_line_text_format})
+
+        quote_format = QTextCharFormat()
+        quote_colour = QColor()
+        quote_colour.setNamedColor("grey")
+        quote_format.setForeground(quote_colour)
+        quote_pattern = QRegExp("\#.*")
+        self.highlighting_rules.append({"pattern":quote_pattern, "format":quote_format})
+
+        num_format = QTextCharFormat()
+        num_colour = QColor()
+        num_colour.setNamedColor("darkorange")
+        num_format.setForeground(num_colour)
+        num_pattern = QRegExp("[0-9]")
+        self.highlighting_rules.append({"pattern":num_pattern, "format":num_format})
+        hex_pattern = QRegExp("0[xX][0-9a-fA-F]+")
+        self.highlighting_rules.append({"pattern":hex_pattern, "format":num_format})
 
     def highlightBlock(self, text):
         for rule_dict in self.highlighting_rules:
             expression = QRegExp(rule_dict["pattern"])
             index = expression.indexIn(text)
             while index >= 0:
-                print("\nindex: {}".format(index))
-                print("rule: {}".format(rule_dict["pattern"]))
                 length = expression.matchedLength()
                 self.setFormat(index, length, rule_dict["format"])
                 index = expression.indexIn(text, index + length)

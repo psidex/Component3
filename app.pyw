@@ -49,4 +49,5 @@ https://github.com/art1415926535/PyQt5-syntax-highlighting
 http://carsonfarmer.com/2009/07/syntax-highlighting-with-pyqt/
 https://regex101.com/
 http://www.rexegg.com/regex-quickstart.html
+http://www.december.com/html/spec/colorsvg.html
 """
