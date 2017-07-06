@@ -101,6 +101,9 @@ class PythonHighlighter(QSyntaxHighlighter):
             (r"'[^'\\]*(\\.[^'\\]*)*'", 0, STYLES['string']),
 
             # 'def' followed by an identifier
+
+            '\bdef\b\s*(\w+)' # def + 1 word (same as the class one)
+
             (r'\bdef\b\s*(\w+)', 1, STYLES['defclass']),
             # 'class' followed by an identifier
             (r'\bclass\b\s*(\w+)', 1, STYLES['defclass']),

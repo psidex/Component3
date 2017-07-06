@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'maingui.ui'
 #
-# Created by: PyQt5 UI code generator 5.8.2
+# Created by: PyQt5 UI code generator 5.9
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -14,8 +14,9 @@ class Ui_MainWindow(object):
         MainWindow.resize(800, 600)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
-        self.editor = QtWidgets.QTextEdit(self.centralwidget)
+        self.editor = QtWidgets.QPlainTextEdit(self.centralwidget)
         self.editor.setGeometry(QtCore.QRect(0, 0, 801, 561))
+        self.editor.setTabStopWidth(40)
         self.editor.setObjectName("editor")
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)

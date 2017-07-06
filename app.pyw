@@ -1,6 +1,7 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5.QtGui import QFontMetrics
 from maingui import Ui_MainWindow
-import syntax_pars
+import syntax
 import sys
 
 class IDE_main_app(Ui_MainWindow):
@@ -11,10 +12,10 @@ class IDE_main_app(Ui_MainWindow):
         self.actionLoad_py_or_hex.triggered.connect(self.loadfile)
 
     def loadfile(self):
-        name = QtWidgets.QFileDialog.getOpenFileName(None, "Open file", "/home")
+        name = QtWidgets.QFileDialog.getOpenFileName(None, "Open file", "/home", "*.py *.pyw *.hex")
         if name[0]:
             with open(name[0], "r") as f:
-                self.editor.setText(f.read())
+                self.editor.setPlainText(f.read())
 
     def setupeditor(self):
         font = QtGui.QFont()
@@ -22,7 +23,10 @@ class IDE_main_app(Ui_MainWindow):
         font.setFixedPitch(True)
         font.setPointSize(10)
         self.editor.setFont(font)
-        self.highlighter = syntax_pars.PythonHighlighter(self.editor.document())
+        fontWidth = QFontMetrics(self.editor.currentCharFormat().font()).averageCharWidth()
+        self.editor.setTabStopWidth(4 * fontWidth)
+        self.editor.setStyleSheet("background-color: rgb(38,50,56); color: white;")
+        self.highlighter = syntax.PythonSyntaxHighlighter(self.editor.document())
 
 if __name__ == "__main__":
 	app = QtWidgets.QApplication(sys.argv)
@@ -31,11 +35,18 @@ if __name__ == "__main__":
 	dialog.show()
 	sys.exit(app.exec_())
 
-""""
-Recourses used
+"""
+Resources used:
 
+Qt5 Stuff:
+https://stackoverflow.com/
 http://zetcode.com/gui/pyqt5
 http://projects.skylogic.ca/blog/how-to-install-pyqt5-and-build-your-first-gui-in-python-3-4/
+http://pyqt.sourceforge.net/Docs/PyQt4/qfiledialog.html
 
-Syntax highlighter from here: https://github.com/art1415926535/PyQt5-syntax-highlighting
+Syntax highlighter help:
+https://github.com/art1415926535/PyQt5-syntax-highlighting
+http://carsonfarmer.com/2009/07/syntax-highlighting-with-pyqt/
+https://regex101.com/
+http://www.rexegg.com/regex-quickstart.html
 """
