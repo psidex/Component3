@@ -1,0 +1,19 @@
+{
+  "name": "component_3",
+  "version": "0.0.1",
+  "description": "Component 3 ",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thatguywiththatname/Component_3.git"
+  },
+  "author": "Simon J",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/thatguywiththatname/Component_3/issues"
+  },
+  "homepage": "https://github.com/thatguywiththatname/Component_3#readme"
+}
