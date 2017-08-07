@@ -1,7 +1,7 @@
 from PyQt5.QtCore import QRegExp
 from PyQt5.QtGui import QSyntaxHighlighter, QColor, QTextCharFormat, QFont
 
-boolean     = ["False", "None", "True"]
+boolean = ["False", "None", "True"]
 
 keywords = [
     "and", "as", "assert", "break", "class", "continue", "def", "del", "elif",
@@ -53,34 +53,43 @@ class PythonSyntaxHighlighter(QSyntaxHighlighter):
         # Custom rules
         # self.highlighting_rules.append({"pattern":pattern, "format":format})
 
-        single_line_text_format = QTextCharFormat()
-        slt_colour = QColor()
-        slt_colour.setRgb(124, 179, 41)
-        single_line_text_format.setForeground(slt_colour)
-
-        slt_pattern1 = QRegExp( '\".*\"' )
-        slt_pattern1.setMinimal(True)  # Don't be greedy :(
-        self.highlighting_rules.append({"pattern":slt_pattern1, "format":single_line_text_format})
-
-        slt_pattern2 = QRegExp( "\'(.*)\'" )
-        slt_pattern2.setMinimal(True)
-        self.highlighting_rules.append({"pattern":slt_pattern2, "format":single_line_text_format})
-
-        quote_format = QTextCharFormat()
-        quote_colour = QColor()
-        quote_colour.setNamedColor("grey")
-        quote_format.setForeground(quote_colour)
-        quote_pattern = QRegExp("\#.*")
-        self.highlighting_rules.append({"pattern":quote_pattern, "format":quote_format})
-
         num_format = QTextCharFormat()
         num_colour = QColor()
         num_colour.setNamedColor("darkorange")
         num_format.setForeground(num_colour)
         num_pattern = QRegExp("[0-9]")
-        self.highlighting_rules.append({"pattern":num_pattern, "format":num_format})
         hex_pattern = QRegExp("0[xX][0-9a-fA-F]+")
+
+        string_format = QTextCharFormat()
+        s_colour = QColor()
+        s_colour.setRgb(124, 179, 41)
+        string_format.setForeground(s_colour)
+
+        s_pattern1 = QRegExp( '\".*\"' )
+        s_pattern1.setMinimal(True)  # Don't be greedy :(
+
+        s_pattern2 = QRegExp( "\'(.*)\'" )
+        s_pattern2.setMinimal(True)
+
+        multi_line_pattern = QRegExp( "\"\"\"([\S\s]*)\"\"\"" )
+        multi_line_pattern.setMinimal(True)
+
+        comment_format = QTextCharFormat()
+        comment_colour = QColor()
+        comment_colour.setNamedColor("grey")
+        comment_format.setForeground(comment_colour)
+        comment_pattern = QRegExp("\#.*")
+
+        # Add to dict in the same order they should be applied (For example,
+        # string highlighting needs to be applied after symbols, so if there is
+        # a symbol in a string, it will be part of the string instead of having
+        # the symbol highlighting)
+        self.highlighting_rules.append({"pattern":num_pattern, "format":num_format})
         self.highlighting_rules.append({"pattern":hex_pattern, "format":num_format})
+        #self.highlighting_rules.append({"pattern":s_pattern1, "format":string_format})
+        #self.highlighting_rules.append({"pattern":s_pattern2, "format":string_format})
+        self.highlighting_rules.append({"pattern":multi_line_pattern, "format":string_format})
+        self.highlighting_rules.append({"pattern":comment_pattern, "format":comment_format})
 
     def highlightBlock(self, text):
         for rule_dict in self.highlighting_rules:
