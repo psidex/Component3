@@ -71,9 +71,6 @@ class PythonSyntaxHighlighter(QSyntaxHighlighter):
         s_pattern2 = QRegExp( "\'(.*)\'" )
         s_pattern2.setMinimal(True)
 
-        multi_line_pattern = QRegExp( "\"\"\"([\S\s]*)\"\"\"" )
-        multi_line_pattern.setMinimal(True)
-
         comment_format = QTextCharFormat()
         comment_colour = QColor()
         comment_colour.setNamedColor("grey")
@@ -86,9 +83,8 @@ class PythonSyntaxHighlighter(QSyntaxHighlighter):
         # the symbol highlighting)
         self.highlighting_rules.append({"pattern":num_pattern, "format":num_format})
         self.highlighting_rules.append({"pattern":hex_pattern, "format":num_format})
-        #self.highlighting_rules.append({"pattern":s_pattern1, "format":string_format})
-        #self.highlighting_rules.append({"pattern":s_pattern2, "format":string_format})
-        self.highlighting_rules.append({"pattern":multi_line_pattern, "format":string_format})
+        self.highlighting_rules.append({"pattern":s_pattern1, "format":string_format})
+        self.highlighting_rules.append({"pattern":s_pattern2, "format":string_format})
         self.highlighting_rules.append({"pattern":comment_pattern, "format":comment_format})
 
     def highlightBlock(self, text):
@@ -100,3 +96,8 @@ class PythonSyntaxHighlighter(QSyntaxHighlighter):
                 self.setFormat(index, length, rule_dict["format"])
                 index = expression.indexIn(text, index + length)
         self.setCurrentBlockState(0)
+
+        match_multiline(QRegExp('"""'), string_format, 1)
+
+    def match_multiline(self, delimiter, format,  block_state):
+        pass
