@@ -32,13 +32,6 @@ class IDE_main_app(Ui_MainWindow):
 
         self.tab_handler.load_file(p.name, file_text)
 
-    def update_line_numbers(self):
-        """ WIP """
-        line_count = 0
-        text = self.main_editor.toPlainText()
-        for line in text.split("\n"):
-            line_count += 1
-
     def setupeditor(self):
         font = QtGui.QFont()
         font.setFamily("Courier")
@@ -57,7 +50,6 @@ class IDE_main_app(Ui_MainWindow):
         self.load_py_btn.clicked.connect(lambda: self.load_file("*.py *.pyw"))
         self.load_hex_btn.clicked.connect(lambda: self.load_file("*.hex"))
         self.new_file_btn.clicked.connect(lambda: self.tab_handler.load_file("new.py", ""))
-        self.main_editor.textChanged.connect(self.update_line_numbers)
 
 if __name__ == "__main__":
 	app = QtWidgets.QApplication(sys.argv)

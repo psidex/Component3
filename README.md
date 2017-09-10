@@ -30,3 +30,12 @@ http://carsonfarmer.com/2009/07/syntax-highlighting-with-pyqt/
 https://regex101.com/
 http://www.rexegg.com/regex-quickstart.html
 http://www.december.com/html/spec/colorsvg.html
+
+## ToDo
+
+ - Implement regex from above
+ - Look into line numbers
+ - Look into word-completion
+ - Add all buttons
+ - Test generated .hex with real microbit
+ - Look into Flashing, RELP, & viewing microbit's internal files
