@@ -1,8 +1,11 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtGui import QFontMetrics
 from maingui import Ui_MainWindow
-import syntax
+from os.path import splitext
 import sys
+
+import syntax
+from py_and_hex.de_compiler import de_compile
 
 class IDE_main_app(Ui_MainWindow):
     def __init__(self, dialog):
@@ -15,9 +18,18 @@ class IDE_main_app(Ui_MainWindow):
 
     def loadfile(self, types):
         name = QtWidgets.QFileDialog.getOpenFileName(None, "Open file", "/home", types)
-        if name[0]:
-            with open(name[0], "r") as f:
-                self.main_editor.setPlainText(f.read())
+        name = name[0]
+        if name:
+            filename, file_extension = splitext(name)
+            if file_extension == ".hex":
+                d_c = de_compile(name)
+                if d_c != -1:
+                    self.main_editor.setPlainText(d_c)
+                else:
+                    pass  # ToDo: Add error popup here
+            else:
+                with open(name, "r") as f:
+                    self.main_editor.setPlainText(f.read())
 
     def update_line_numbers(self):
         """ WIP """

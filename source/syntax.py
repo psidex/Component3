@@ -84,9 +84,9 @@ class PythonSyntaxHighlighter(QSyntaxHighlighter):
         """
         self.highlighting_rules.append({"pattern":num_pattern, "format":num_format})
         self.highlighting_rules.append({"pattern":hex_pattern, "format":num_format})
-        self.highlighting_rules.append({"pattern":comment_pattern, "format":comment_format})
         self.highlighting_rules.append({"pattern":s_pattern1, "format":self.string_format})
         self.highlighting_rules.append({"pattern":s_pattern2, "format":self.string_format})
+        self.highlighting_rules.append({"pattern":comment_pattern, "format":comment_format})
 
     def highlightBlock(self, text):
         for rule_dict in self.highlighting_rules:
@@ -103,7 +103,7 @@ class PythonSyntaxHighlighter(QSyntaxHighlighter):
 
     def match_multiline_comment(self, text, delimiter, block_state):
         """
-        This does not match multiline comments 100% but its good enough
+        Not perfect but it's good enough :)
         """
         # If inside multiline comment, start at index 0
         if self.previousBlockState() == block_state:
