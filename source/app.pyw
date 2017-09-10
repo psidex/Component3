@@ -5,7 +5,7 @@ from os.path import splitext
 import sys
 
 import syntax
-from py_and_hex.de_compiler import de_compile
+from py_and_hex.decompiler import decompile
 
 class IDE_main_app(Ui_MainWindow):
     def __init__(self, dialog):
@@ -22,7 +22,7 @@ class IDE_main_app(Ui_MainWindow):
         if name:
             filename, file_extension = splitext(name)
             if file_extension == ".hex":
-                d_c = de_compile(name)
+                d_c = decompile(name)
                 if d_c != -1:
                     self.main_editor.setPlainText(d_c)
                 else:

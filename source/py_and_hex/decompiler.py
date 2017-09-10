@@ -1,4 +1,4 @@
-def de_compile(file_path):
+def decompile(file_path):
     """
     Returns -1 if failed, otherwise, return script text
     """
