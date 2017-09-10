@@ -6,12 +6,13 @@ import sys
 
 import syntax
 from py_and_hex import decompiler, compiler
+from tabs import tab_handler
 
 class IDE_main_app(Ui_MainWindow):
     def __init__(self, dialog):
         Ui_MainWindow.__init__(self)
         self.setupUi(dialog)
-        self.tab_texts = [""]  # Tabs
+        self.tab_handler = tab_handler(self.editor_tabs, self.main_editor)
         self.setupeditor()
 
     def loadfile(self, types):
@@ -30,13 +31,7 @@ class IDE_main_app(Ui_MainWindow):
             with open(name, "r") as f:
                 file_text = f.read()
 
-        self.editor_tabs.addTab(QtWidgets.QWidget(), p.name)
-        self.tab_texts.append(file_text)
-        if self.editor_tabs.count() > 1:
-            self.editor_tabs.show()
-        self.tab_texts[self.editor_tabs.currentIndex()] = self.main_editor.toPlainText()
-        self.editor_tabs.setCurrentIndex(len(self.tab_texts)-1)
-        self.main_editor.setPlainText(self.tab_texts[-1])
+        self.tab_handler.load_file(p.name, file_text)
 
     def update_line_numbers(self):
         """ WIP """
@@ -60,37 +55,10 @@ class IDE_main_app(Ui_MainWindow):
         self.load_hex_btn.clicked.connect(lambda: self.loadfile("*.hex"))
         self.main_editor.textChanged.connect(self.update_line_numbers)
 
-        self.editor_tabs.tabCloseRequested.connect(self.tab_closed)
-        self.editor_tabs.tabBarClicked.connect(self.change_tab)
+        self.editor_tabs.tabCloseRequested.connect(self.tab_handler.tab_closed)
+        self.editor_tabs.tabBarClicked.connect(self.tab_handler.change_tab)
         self.editor_tabs.addTab(QtWidgets.QWidget(), "new.py")
         self.editor_tabs.hide()
-
-    def tab_closed(self, index):
-        if self.editor_tabs.count() == 1:
-            # Shouldn't be able to close the last tab but there is a guard just inscase
-            return
-        elif self.editor_tabs.currentIndex() != index:
-            # Not currently looking at closing tab so just remove it from memory
-            del self.tab_texts[index]
-            self.editor_tabs.removeTab(index)
-        else:
-            # Deleting currently veiwed tab, so move to different tab before deleting
-            if index == 0:
-                self.change_tab(index+1)
-                self.editor_tabs.setCurrentIndex(index+1)
-            else:
-                self.change_tab(index-1)
-                self.editor_tabs.setCurrentIndex(index-1)
-                
-            del self.tab_texts[index]
-            self.editor_tabs.removeTab(index)
-
-        if self.editor_tabs.count() <= 1:
-            self.editor_tabs.hide()
-
-    def change_tab(self, index):
-        self.tab_texts[self.editor_tabs.currentIndex()] = self.main_editor.toPlainText()
-        self.main_editor.setPlainText(self.tab_texts[index])
 
 if __name__ == "__main__":
 	app = QtWidgets.QApplication(sys.argv)
@@ -98,20 +66,3 @@ if __name__ == "__main__":
 	prog = IDE_main_app(dialog)
 	dialog.show()
 	sys.exit(app.exec_())
-
-"""
-Resources used:
-
-Qt5 Stuff:
-https://stackoverflow.com/
-http://zetcode.com/gui/pyqt5
-http://projects.skylogic.ca/blog/how-to-install-pyqt5-and-build-your-first-gui-in-python-3-4/
-http://pyqt.sourceforge.net/Docs/PyQt4/qfiledialog.html
-
-Syntax highlighter help:
-https://github.com/art1415926535/PyQt5-syntax-highlighting
-http://carsonfarmer.com/2009/07/syntax-highlighting-with-pyqt/
-https://regex101.com/
-http://www.rexegg.com/regex-quickstart.html
-http://www.december.com/html/spec/colorsvg.html
-"""
