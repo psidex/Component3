@@ -20,6 +20,7 @@ class IDE_main_app(Ui_MainWindow):
                 self.main_editor.setPlainText(f.read())
 
     def update_line_numbers(self):
+        """ WIP """
         line_count = 0
         text = self.main_editor.toPlainText()
         for line in text.split("\n"):
