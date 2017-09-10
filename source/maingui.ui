@@ -97,6 +97,9 @@
           <height>0</height>
          </size>
         </property>
+        <property name="lineWrapMode">
+         <enum>QPlainTextEdit::NoWrap</enum>
+        </property>
         <property name="tabStopWidth">
          <number>40</number>
         </property>

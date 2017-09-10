@@ -42,6 +42,7 @@ class Ui_MainWindow(object):
         self.verticalLayout.addLayout(self.gridLayout)
         self.main_editor = QtWidgets.QPlainTextEdit(self.centralwidget)
         self.main_editor.setMinimumSize(QtCore.QSize(0, 0))
+        self.main_editor.setLineWrapMode(QtWidgets.QPlainTextEdit.NoWrap)
         self.main_editor.setTabStopWidth(40)
         self.main_editor.setObjectName("main_editor")
         self.verticalLayout.addWidget(self.main_editor)
