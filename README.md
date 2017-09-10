@@ -1,6 +1,12 @@
-# Component_3
+# Component_3 - BBC Micro:Bit Python IDE
 
-# Regex for later
+## res -> py
+
+`pyuic5 file.ui -o file.py`
+
+`pyrcc5 res.qrc -o res_rc.py`
+
+## Regex for later
 
 Match square brackets `\['([\S\s]*?)\]`
 
