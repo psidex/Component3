@@ -19,24 +19,27 @@
      <layout class="QVBoxLayout" name="verticalLayout">
       <item>
        <layout class="QGridLayout" name="gridLayout">
-        <item row="1" column="6">
-         <widget class="QToolButton" name="save_hex_btn">
+        <item row="2" column="1">
+         <widget class="QToolButton" name="load_py_btn">
           <property name="minimumSize">
            <size>
             <width>80</width>
             <height>45</height>
            </size>
           </property>
+          <property name="styleSheet">
+           <string notr="true"/>
+          </property>
           <property name="text">
            <string/>
           </property>
           <property name="icon">
            <iconset resource="images.qrc">
-            <normaloff>:/icons/icons/save.svg</normaloff>:/icons/icons/save.svg</iconset>
+            <normaloff>:/icons/icons/folder.svg</normaloff>:/icons/icons/folder.svg</iconset>
           </property>
          </widget>
         </item>
-        <item row="1" column="7">
+        <item row="2" column="8">
          <spacer name="horizontalSpacer">
           <property name="orientation">
            <enum>Qt::Horizontal</enum>
@@ -49,7 +52,37 @@
           </property>
          </spacer>
         </item>
-        <item row="1" column="5">
+        <item row="2" column="2">
+         <widget class="QToolButton" name="load_hex_btn">
+          <property name="minimumSize">
+           <size>
+            <width>80</width>
+            <height>45</height>
+           </size>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+          <property name="icon">
+           <iconset resource="images.qrc">
+            <normaloff>:/icons/icons/folder.svg</normaloff>:/icons/icons/folder.svg</iconset>
+          </property>
+          <property name="toolButtonStyle">
+           <enum>Qt::ToolButtonIconOnly</enum>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="QLabel" name="load_py_label">
+          <property name="text">
+           <string>Load from .py</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="5">
          <widget class="QToolButton" name="save_py_btn">
           <property name="minimumSize">
            <size>
@@ -66,19 +99,43 @@
           </property>
          </widget>
         </item>
-        <item row="1" column="1">
-         <widget class="QToolButton" name="load_py_btn">
+        <item row="0" column="2">
+         <widget class="QLabel" name="load_hex_label">
+          <property name="text">
+           <string>Load from .hex</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="6">
+         <widget class="QToolButton" name="save_hex_btn">
           <property name="minimumSize">
            <size>
             <width>80</width>
             <height>45</height>
            </size>
           </property>
-          <property name="styleSheet">
-           <string notr="true"/>
-          </property>
           <property name="text">
            <string/>
+          </property>
+          <property name="icon">
+           <iconset resource="images.qrc">
+            <normaloff>:/icons/icons/save.svg</normaloff>:/icons/icons/save.svg</iconset>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="0">
+         <widget class="QToolButton" name="new_file_btn">
+          <property name="minimumSize">
+           <size>
+            <width>80</width>
+            <height>45</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>...</string>
           </property>
           <property name="icon">
            <iconset resource="images.qrc">
@@ -86,10 +143,10 @@
           </property>
          </widget>
         </item>
-        <item row="0" column="2">
-         <widget class="QLabel" name="load_hex_label">
+        <item row="0" column="6">
+         <widget class="QLabel" name="save_hex_label">
           <property name="text">
-           <string>Load from .hex</string>
+           <string>Save to .hex</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignCenter</set>
@@ -106,46 +163,6 @@
           </property>
          </widget>
         </item>
-        <item row="0" column="6">
-         <widget class="QLabel" name="save_hex_label">
-          <property name="text">
-           <string>Save to .hex</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignCenter</set>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="1">
-         <widget class="QLabel" name="load_py_label">
-          <property name="text">
-           <string>Load from .py</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignCenter</set>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="2">
-         <widget class="QToolButton" name="load_hex_btn">
-          <property name="minimumSize">
-           <size>
-            <width>80</width>
-            <height>45</height>
-           </size>
-          </property>
-          <property name="text">
-           <string/>
-          </property>
-          <property name="icon">
-           <iconset resource="images.qrc">
-            <normaloff>:/icons/icons/file-plus.svg</normaloff>:/icons/icons/file-plus.svg</iconset>
-          </property>
-          <property name="toolButtonStyle">
-           <enum>Qt::ToolButtonIconOnly</enum>
-          </property>
-         </widget>
-        </item>
         <item row="0" column="0">
          <widget class="QLabel" name="new_file_label">
           <property name="text">
@@ -156,8 +173,18 @@
           </property>
          </widget>
         </item>
-        <item row="1" column="0">
-         <widget class="QToolButton" name="new_file_btn">
+        <item row="0" column="7">
+         <widget class="QLabel" name="help_label">
+          <property name="text">
+           <string>Help</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="7">
+         <widget class="QToolButton" name="help_btn">
           <property name="minimumSize">
            <size>
             <width>80</width>
@@ -169,7 +196,7 @@
           </property>
           <property name="icon">
            <iconset resource="images.qrc">
-            <normaloff>:/icons/icons/file-plus.svg</normaloff>:/icons/icons/file-plus.svg</iconset>
+            <normaloff>:/icons/icons/help-circle.svg</normaloff>:/icons/icons/help-circle.svg</iconset>
           </property>
          </widget>
         </item>
@@ -209,7 +236,7 @@
          <bool>false</bool>
         </property>
         <property name="tabBarAutoHide">
-         <bool>true</bool>
+         <bool>false</bool>
         </property>
        </widget>
       </item>
@@ -220,6 +247,9 @@
           <width>0</width>
           <height>0</height>
          </size>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(38,50,56); color: white;</string>
         </property>
         <property name="lineWrapMode">
          <enum>QPlainTextEdit::NoWrap</enum>

@@ -1,6 +1,8 @@
 <RCC>
   <qresource prefix="icons">
+    <file>icons/folder.svg</file>
     <file>icons/file-plus.svg</file>
+    <file>icons/help-circle.svg</file>
     <file>icons/save.svg</file>
   </qresource>
 </RCC>

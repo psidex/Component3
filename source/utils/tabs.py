@@ -1,4 +1,4 @@
-from PyQt5 import QtWidgets
+from PyQt5.QtWidgets import QWidget
 
 """
 Handles everything to do with tabs in the main editor
@@ -11,7 +11,7 @@ class tab_handler(object):
 
     def tab_closed(self, index):
         if self.tab_widget.count() == 1:
-            # Shouldn't be able to close the last tab but there is a guard just inscase
+            # Can't close last tab
             return
         elif self.tab_widget.currentIndex() != index:
             # Not currently looking at closing tab so just remove it from memory
@@ -29,15 +29,12 @@ class tab_handler(object):
             del self.tab_texts[index]
             self.tab_widget.removeTab(index)
 
-        if self.tab_widget.count() <= 1:
-            self.tab_widget.hide()
-
     def change_tab(self, index):
         self.tab_texts[self.tab_widget.currentIndex()] = self.text_edit_widget.toPlainText()
         self.text_edit_widget.setPlainText(self.tab_texts[index])
 
     def load_file(self, file_name, file_text):
-        self.tab_widget.addTab(QtWidgets.QWidget(), file_name)
+        self.tab_widget.addTab(QWidget(), file_name)
         self.tab_texts.append(file_text)
         if self.tab_widget.count() > 1:
             self.tab_widget.show()
