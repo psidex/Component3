@@ -13,6 +13,10 @@
   <property name="windowTitle">
    <string>Micro:bit Python3 IDE</string>
   </property>
+  <property name="windowIcon">
+   <iconset resource="images.qrc">
+    <normaloff>:/icons/icons/python.ico</normaloff>:/icons/icons/python.ico</iconset>
+  </property>
   <property name="styleSheet">
    <string notr="true"/>
   </property>

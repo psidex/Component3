@@ -1,5 +1,6 @@
 <RCC>
   <qresource prefix="icons">
+    <file>icons/python.ico</file>
     <file>icons/folder.svg</file>
     <file>icons/file-plus.svg</file>
     <file>icons/help-circle.svg</file>
