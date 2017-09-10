@@ -9,24 +9,32 @@ class IDE_main_app(Ui_MainWindow):
         Ui_MainWindow.__init__(self)
         self.setupUi(dialog)
         self.setupeditor()
-        self.actionLoad_py_or_hex.triggered.connect(self.loadfile)
+        self.load_py_btn.clicked.connect(lambda: self.loadfile("*.py *.pyw"))
+        self.load_hex_btn.clicked.connect(lambda: self.loadfile("*.hex"))
+        self.main_editor.textChanged.connect(self.update_line_numbers)
 
-    def loadfile(self):
-        name = QtWidgets.QFileDialog.getOpenFileName(None, "Open file", "/home", "*.py *.pyw *.hex")
+    def loadfile(self, types):
+        name = QtWidgets.QFileDialog.getOpenFileName(None, "Open file", "/home", types)
         if name[0]:
             with open(name[0], "r") as f:
-                self.editor.setPlainText(f.read())
+                self.main_editor.setPlainText(f.read())
+
+    def update_line_numbers(self):
+        line_count = 0
+        text = self.main_editor.toPlainText()
+        for line in text.split("\n"):
+            line_count += 1
 
     def setupeditor(self):
         font = QtGui.QFont()
         font.setFamily("Courier")
         font.setFixedPitch(True)
         font.setPointSize(10)
-        self.editor.setFont(font)
-        fontWidth = QFontMetrics(self.editor.currentCharFormat().font()).averageCharWidth()
-        self.editor.setTabStopWidth(4 * fontWidth)
-        self.editor.setStyleSheet("background-color: rgb(38,50,56); color: white;")
-        self.highlighter = syntax.PythonSyntaxHighlighter(self.editor.document())
+        self.main_editor.setFont(font)
+        fontWidth = QFontMetrics(self.main_editor.currentCharFormat().font()).averageCharWidth()
+        self.main_editor.setTabStopWidth(4 * fontWidth)
+        self.main_editor.setStyleSheet("background-color: rgb(38,50,56); color: white;")
+        self.highlighter = syntax.PythonSyntaxHighlighter(self.main_editor.document())
 
 if __name__ == "__main__":
 	app = QtWidgets.QApplication(sys.argv)
