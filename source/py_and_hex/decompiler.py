@@ -7,7 +7,10 @@ def decompile(file_path):
 
     with open(file_path, "rb") as f:
         # Skips firmware.hex
-        data = f.readlines()[15155:-2]
+        data = f.readlines()
+        if len(data) < 15158:
+            return -1  # Too short, cannot be MicroPython file
+        data = data[15155:-2]
 
     for record in data:
         if first:

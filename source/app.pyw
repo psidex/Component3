@@ -1,12 +1,16 @@
+# System imports
 from PyQt5 import QtWidgets
 from PyQt5.QtGui import QFontMetrics, QFont
 from maingui import Ui_MainWindow
 from pathlib import Path
+import webbrowser
 import sys
 
-from utils.syntax import PythonSyntaxHighlighter
+# Custom imports
+from utils.syntax import python_syntax_highlighter
 from py_and_hex import decompiler, compiler
 from utils.tabs import tab_handler
+from utils.utils import popup
 
 class IDE_main_app(Ui_MainWindow):
     def __init__(self, dialog):
@@ -25,12 +29,16 @@ class IDE_main_app(Ui_MainWindow):
             if d_c != -1:
                 file_text = d_c
             else:
-                return  # ToDo: Add error popup here
+                popup("Error", "Cannot load {}".format(p.name), "It is not a MicroPython file")
+                return
         else:
             with open(name, "r") as f:
                 file_text = f.read()
 
         self.tab_handler.load_file(p.name, file_text)
+
+    def open_help(self):
+        webbrowser.open("https://microbit-micropython.readthedocs.io/en/latest/")
 
     def setup_editor(self):
         font = QFont()
@@ -40,7 +48,7 @@ class IDE_main_app(Ui_MainWindow):
         self.main_editor.setFont(font)
         fontWidth = QFontMetrics(self.main_editor.currentCharFormat().font()).averageCharWidth()
         self.main_editor.setTabStopWidth(4 * fontWidth)
-        self.highlighter = PythonSyntaxHighlighter(self.main_editor.document())
+        self.highlighter = python_syntax_highlighter(self.main_editor.document())
 
         self.tab_handler = tab_handler(self.editor_tabs, self.main_editor)
         self.editor_tabs.tabCloseRequested.connect(self.tab_handler.tab_closed)
@@ -49,6 +57,7 @@ class IDE_main_app(Ui_MainWindow):
 
         self.load_py_btn.clicked.connect(lambda: self.load_file("*.py *.pyw"))
         self.load_hex_btn.clicked.connect(lambda: self.load_file("*.hex"))
+        self.help_btn.clicked.connect(self.open_help)
         self.new_file_btn.clicked.connect(lambda: self.tab_handler.load_file("new.py", ""))
 
 if __name__ == "__main__":

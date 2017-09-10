@@ -33,8 +33,6 @@ class tab_handler(object):
     def load_file(self, file_name, file_text):
         self.tab_widget.addTab(QWidget(), file_name)
         self.tab_texts.append(file_text)
-        if self.tab_widget.count() > 1:
-            self.tab_widget.show()
         self.tab_texts[self.tab_widget.currentIndex()] = self.text_edit_widget.toPlainText()
         self.tab_widget.setCurrentIndex(len(self.tab_texts)-1)
         self.text_edit_widget.setPlainText(self.tab_texts[-1])

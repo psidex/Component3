@@ -14,7 +14,7 @@ comparators_arithmetic_bitwise = [
     "<", ">", "!", "+", "-", "*", "/", "%", "=", "|", "^", "&", "~"
 ]
 
-class PythonSyntaxHighlighter(QSyntaxHighlighter):
+class python_syntax_highlighter(QSyntaxHighlighter):
     def __init__(self, document):
         QSyntaxHighlighter.__init__(self, document)
 
