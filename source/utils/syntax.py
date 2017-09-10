@@ -70,6 +70,12 @@ class PythonSyntaxHighlighter(QSyntaxHighlighter):
         s_pattern2 = QRegExp( "\'(.*)\'" )
         s_pattern2.setMinimal(True)
 
+        func_format = QTextCharFormat()
+        func_colour = QColor()
+        func_colour.setNamedColor("lightsteelblue")
+        func_format.setForeground(func_colour)
+        func_patten = QRegExp("([\w\-]+)(?=\()")
+
         comment_format = QTextCharFormat()
         comment_colour = QColor()
         comment_colour.setNamedColor("grey")
@@ -84,6 +90,7 @@ class PythonSyntaxHighlighter(QSyntaxHighlighter):
         """
         self.highlighting_rules.append({"pattern":num_pattern, "format":num_format})
         self.highlighting_rules.append({"pattern":hex_pattern, "format":num_format})
+        self.highlighting_rules.append({"pattern":func_patten, "format":func_format})
         self.highlighting_rules.append({"pattern":s_pattern1, "format":self.string_format})
         self.highlighting_rules.append({"pattern":s_pattern2, "format":self.string_format})
         self.highlighting_rules.append({"pattern":comment_pattern, "format":comment_format})

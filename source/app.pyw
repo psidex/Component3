@@ -1,5 +1,5 @@
-from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtGui import QFontMetrics
+from PyQt5 import QtWidgets
+from PyQt5.QtGui import QFontMetrics, QFont
 from maingui import Ui_MainWindow
 from pathlib import Path
 import sys
@@ -33,7 +33,7 @@ class IDE_main_app(Ui_MainWindow):
         self.tab_handler.load_file(p.name, file_text)
 
     def setupeditor(self):
-        font = QtGui.QFont()
+        font = QFont()
         font.setFamily("Courier")
         font.setFixedPitch(True)
         font.setPointSize(10)

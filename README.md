@@ -37,5 +37,6 @@ http://www.december.com/html/spec/colorsvg.html
  - Look into line numbers
  - Look into word-completion
  - Add all buttons
+ - Inserting tabs when enter is pressed
  - Test generated .hex with real microbit
  - Look into Flashing, RELP, & viewing microbit's internal files
