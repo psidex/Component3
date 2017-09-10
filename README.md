@@ -31,4 +31,4 @@ http://www.december.com/html/spec/colorsvg.html
  - Inserting tabs when enter is pressed
  - Look into line numbers
  - Test generated .hex with real microbit
- - Look into Flashing, RELP, & viewing microbit's internal files
+ - Look into Flashing, REPL, & viewing microbit's internal files

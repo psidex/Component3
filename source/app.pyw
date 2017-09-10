@@ -12,7 +12,7 @@ class IDE_main_app(Ui_MainWindow):
     def __init__(self, dialog):
         Ui_MainWindow.__init__(self)
         self.setupUi(dialog)
-        self.setupeditor()
+        self.setup_editor()
 
     def load_file(self, types):
         name = QtWidgets.QFileDialog.getOpenFileName(None, "Open file", "/home", types)
@@ -32,7 +32,7 @@ class IDE_main_app(Ui_MainWindow):
 
         self.tab_handler.load_file(p.name, file_text)
 
-    def setupeditor(self):
+    def setup_editor(self):
         font = QFont()
         font.setFamily("Courier")
         font.setFixedPitch(True)
