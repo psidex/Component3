@@ -6,14 +6,6 @@
 
 `pyrcc5 res.qrc -o res_rc.py`
 
-## Regex for later
-
-Match square brackets `\['([\S\s]*?)\]`
-
-def + 1 word `\bdef\b\s*(\w+)`
-
-comments `#(.*)`
-
 ## Notes / Used sources
 
 Icons from https://feathericons.com/
@@ -31,12 +23,12 @@ https://regex101.com/
 http://www.rexegg.com/regex-quickstart.html
 http://www.december.com/html/spec/colorsvg.html
 
-## ToDo
+## ToDo (not in any order)
 
- - Implement regex from above
- - Look into line numbers
+ - ~~Implement regex from above~~
+ - Add & finish all buttons
  - Look into word-completion
- - Add all buttons
  - Inserting tabs when enter is pressed
+ - Look into line numbers
  - Test generated .hex with real microbit
  - Look into Flashing, RELP, & viewing microbit's internal files
