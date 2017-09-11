@@ -7,10 +7,10 @@ import webbrowser
 import sys
 
 # Custom imports
-from utils.syntax import python_syntax_highlighter
-from py_and_hex import decompiler, compiler
-from utils.tabs import tab_handler
-from utils.utils import popup
+from lib.syntax.highlighter import python_syntax_highlighter
+from lib.py_and_hex import decompiler, compiler
+from lib.tabs import tab_handler
+from lib.utils import popup
 
 class IDE_main_app(Ui_MainWindow):
     def __init__(self, dialog):
