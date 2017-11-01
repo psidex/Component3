@@ -1,4 +1,4 @@
-def decompile(file_path):
+def de_compile(file_path):
     """
     Returns -1 if failed, otherwise, return script text
     """
@@ -7,10 +7,7 @@ def decompile(file_path):
 
     with open(file_path, "rb") as f:
         # Skips firmware.hex
-        data = f.readlines()
-        if len(data) < 15158:
-            return -1  # Too short, cannot be MicroPython file
-        data = data[15155:-2]
+        data = f.readlines()[15155:-2]
 
     for record in data:
         if first:
@@ -33,4 +30,9 @@ def decompile(file_path):
     return output
 
 if __name__ == "__main__":
-    print(de_compile("microbit.hex"))
+    """
+    python de_compiler.py in.hex out.py
+    """
+    from sys import argv
+    with open(argv[2], "w") as outfile:
+        outfile.write(de_compile(argv[1]))

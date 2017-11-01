@@ -11,7 +11,7 @@ def compile_to_hex(script, script_size):
     addr = 0x3e000  # Magic start address for inserted code
     output = []  # Final output
     data = [0] * 4
-    data[0] = 77  # MicroPython headers (?)
+    data[0] = 77  # "MicroPython signature"
     data[1] = 80  # ^
     data[2] = script_size & 0xFF         # Low byte of script length
     data[3] = (script_size >> 8) & 0xFF  # High byte
@@ -31,7 +31,8 @@ def compile_to_hex(script, script_size):
         chunk.append(0)      # Data type
         for j in range(16):  # Get the next 16 chars from the data array
             chunk.append(data[i + j])
-        chunk.append((~sum(data) + 1) & 0xFF)  # Checksum
+        # Checksum - The low byte of the negative of the sum of the chunk
+        chunk.append((-sum(chunk)) & 0xFF)
         # ":" + (Array of ints -> string of hex values)
         output.append(":" + "".join("{:02x}".format(x) for x in chunk).upper())
         addr += 16  # Next address
@@ -44,12 +45,14 @@ def compile_to_hex(script, script_size):
 
 if __name__ == "__main__":
     """
-    Compile de_compiler.py just as a test and write to microbit.hex
+    python compiler.py in.py out.hex
     """
     from os import fstat
-    python_file = "de_compiler.py"
+    from sys import argv
+    python_file = argv[1]
+    out_file = argv[2]
     with open(python_file, "rb") as f_in:
         s = f_in.read()
         s_size = fstat(f_in.fileno()).st_size  # File size size from fstat
-    with open("microbit.hex", "wb") as outfile:
+    with open(out_file, "wb") as outfile:
         outfile.write(compile_to_hex(s, s_size))
