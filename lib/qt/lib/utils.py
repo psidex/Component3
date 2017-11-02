@@ -1,5 +1,14 @@
 from PyQt5.QtWidgets import QMessageBox
 
+"""
+Creates a Qt popup window with these properties:
+window_title
+title
+message
+icon=QMessageBox.Information
+action=None - Should be a function if passed
+exit=False - Program will exit when message is closed
+"""
 def popup(window_title, title, message, icon=QMessageBox.Information, action=None, exit=False):
     msg = QMessageBox()
     msg.setIcon(icon)

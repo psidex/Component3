@@ -21,7 +21,7 @@ class python_syntax_highlighter(QSyntaxHighlighter):
         self.highlighting_rules = []
         """
         pattern = regex pattern, format = colour/font formatting
-        all colour names http://www.december.com/html/spec/colorsvg.html
+        all colour names @ http://www.december.com/html/spec/colorsvg.html
         """
 
         # Keywords
