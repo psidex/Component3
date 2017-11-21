@@ -7,7 +7,7 @@ def de_compile(file_path):
 
     with open(file_path, "rb") as f:
         # Skips firmware.hex
-        data = f.readlines()[15155:-2]
+        data = f.readlines()[13589:-2]
 
     for record in data:
         if first:

@@ -29,7 +29,7 @@ class IDE_main_app(Ui_MainWindow):
             if d_c != -1:
                 file_text = d_c
             else:
-                popup("Error", "Cannot load {}".format(p.name), "It is not a MicroPython file")
+                popup("Error", "Cannot load {}".format(p.name), "It is not a MicroPython file, baka")
                 return
         else:
             with open(name, "r") as f:
