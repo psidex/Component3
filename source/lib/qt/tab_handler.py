@@ -64,9 +64,7 @@ class tab_handler(object):
         self.tab_texts[self.tab_widget.currentIndex()] = self.text_edit_widget.toPlainText()
         self.text_edit_widget.setPlainText(self.tab_texts[index])
 
-    def new_tab(self, editor_text=None, tab_name=None):
-        if not editor_text:
-            editor_text = ""
+    def new_tab(self, editor_text="", tab_name=None):
         if not tab_name:
             tab_name = self.default_tab_name
         self.tab_widget.addTab(QWidget(), tab_name)
