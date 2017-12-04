@@ -1,6 +1,15 @@
 from PyQt5.QtCore import QRegExp
 from PyQt5.QtGui import QSyntaxHighlighter, QColor, QTextCharFormat, QFont
 
+"""
+Example usage:
+self.highlighter = python_syntax_highlighter(self.text_editor.document())
+
+Most of these words are from
+>>> import keyword
+>>> print(keyword.kwlist)
+"""
+
 boolean = ["False", "None", "True"]
 
 keywords = [
@@ -16,11 +25,12 @@ comparators_arithmetic_bitwise = [
 
 class python_syntax_highlighter(QSyntaxHighlighter):
     def __init__(self, document):
+        # Init highlighter with given text document
         QSyntaxHighlighter.__init__(self, document)
 
         self.highlighting_rules = []
         """
-        pattern = regex pattern, format = colour/font formatting
+        pattern = regex pattern to find, format = QTextCharFormat -> colour/font
         all colour names @ http://www.december.com/html/spec/colorsvg.html
         """
 
@@ -96,6 +106,10 @@ class python_syntax_highlighter(QSyntaxHighlighter):
         self.highlighting_rules.append({"pattern":comment_pattern, "format":comment_format})
 
     def highlightBlock(self, text):
+        """
+        For each rule, see if the pattern matches anything in "the current text block"
+
+        """
         for rule_dict in self.highlighting_rules:
             expression = QRegExp(rule_dict["pattern"])
             index = expression.indexIn(text)
@@ -116,9 +130,10 @@ class python_syntax_highlighter(QSyntaxHighlighter):
         if self.previousBlockState() == block_state:
             start = 0
             offset = 0
+        # Else start at the index
         else:
             start = delimiter.indexIn(text)
-            offset = 3  # Len of """
+            offset = 3  # Len of """ / '''
 
         # If there is a match
         if start >= 0:
@@ -127,13 +142,13 @@ class python_syntax_highlighter(QSyntaxHighlighter):
 
             # If found
             if end >= start + offset:
-                # Format up to and including delimiter
+                # Format up to and including delimiter ("""/''')
                 length = end + 3
-                self.setCurrentBlockState(0)
+                self.setCurrentBlockState(0)  # We have finished highlighting the text
             else:
-                # Format whole line and let next call know it is still in block
+                # Format whole line and let next call know it is still in multi-line "mode"
                 self.setCurrentBlockState(block_state)
                 length = len(text)
 
-            # Format text
+            # Format text from start -> length using self.string_format
             self.setFormat(start, length, self.string_format)

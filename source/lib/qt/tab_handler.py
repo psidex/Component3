@@ -39,8 +39,8 @@ class tab_handler(object):
         self.tab_texts = []
         self.default_tab_name = default_name
         # Auto bind stuff
-        text_edit_widget.tabCloseRequested.connect(self.tab_closed)
-        text_edit_widget.tabBarClicked.connect(self.change_tab)
+        self.tab_widget.tabCloseRequested.connect(self.tab_closed)
+        self.tab_widget.tabBarClicked.connect(self.change_tab)
         self.new_tab()
 
     def tab_closed(self, index):
@@ -61,14 +61,16 @@ class tab_handler(object):
         self.tab_widget.removeTab(index)
 
     def change_tab(self, index):
+        # Save the current tabs text to tab_texts then set the text edits text to the new
+        # index in tab_texts
         self.tab_texts[self.tab_widget.currentIndex()] = self.text_edit_widget.toPlainText()
         self.text_edit_widget.setPlainText(self.tab_texts[index])
 
-    def new_tab(self, editor_text="", tab_name=None):
+    def new_tab(self, tab_name=None, editor_text=""):
         if not tab_name:
             tab_name = self.default_tab_name
         self.tab_widget.addTab(QWidget(), tab_name)
         self.tab_texts.append(editor_text)
-        self.tab_texts[self.tab_widget.currentIndex()] = self.text_edit_widget.toPlainText()
-        self.tab_widget.setCurrentIndex(len(self.tab_texts)-1)
-        self.text_edit_widget.setPlainText(self.tab_texts[-1])
+        self.tab_texts[self.tab_widget.currentIndex()] = self.text_edit_widget.toPlainText()  # Save the current tabs text
+        self.tab_widget.setCurrentIndex(len(self.tab_texts)-1)  # Switch to last tab in tab list (the new tab)
+        self.text_edit_widget.setPlainText(self.tab_texts[-1])  # Switch to last text in tab_texts (the new text)

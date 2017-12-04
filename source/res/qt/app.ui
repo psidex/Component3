@@ -24,6 +24,9 @@
    <layout class="QGridLayout" name="gridLayout_2">
     <item row="0" column="0">
      <layout class="QVBoxLayout" name="verticalLayout">
+      <property name="spacing">
+       <number>0</number>
+      </property>
       <item>
        <layout class="QGridLayout" name="gridLayout">
         <item row="2" column="1">
@@ -41,8 +44,8 @@
            <string/>
           </property>
           <property name="icon">
-           <iconset>
-            <normaloff>:/icons/icons/folder.svg</normaloff>:/icons/icons/folder.svg</iconset>
+           <iconset resource="app_ui_res.qrc">
+            <normaloff>:/Icons/icons/folder.svg</normaloff>:/Icons/icons/folder.svg</iconset>
           </property>
          </widget>
         </item>
@@ -71,8 +74,8 @@
            <string/>
           </property>
           <property name="icon">
-           <iconset>
-            <normaloff>:/icons/icons/folder.svg</normaloff>:/icons/icons/folder.svg</iconset>
+           <iconset resource="app_ui_res.qrc">
+            <normaloff>:/Icons/icons/folder.svg</normaloff>:/Icons/icons/folder.svg</iconset>
           </property>
           <property name="toolButtonStyle">
            <enum>Qt::ToolButtonIconOnly</enum>
@@ -101,8 +104,8 @@
            <string/>
           </property>
           <property name="icon">
-           <iconset>
-            <normaloff>:/icons/icons/save.svg</normaloff>:/icons/icons/save.svg</iconset>
+           <iconset resource="app_ui_res.qrc">
+            <normaloff>:/Icons/icons/save.svg</normaloff>:/Icons/icons/save.svg</iconset>
           </property>
          </widget>
         </item>
@@ -128,8 +131,8 @@
            <string/>
           </property>
           <property name="icon">
-           <iconset>
-            <normaloff>:/icons/icons/save.svg</normaloff>:/icons/icons/save.svg</iconset>
+           <iconset resource="app_ui_res.qrc">
+            <normaloff>:/Icons/icons/save.svg</normaloff>:/Icons/icons/save.svg</iconset>
           </property>
          </widget>
         </item>
@@ -145,8 +148,8 @@
            <string>...</string>
           </property>
           <property name="icon">
-           <iconset>
-            <normaloff>:/icons/icons/file-plus.svg</normaloff>:/icons/icons/file-plus.svg</iconset>
+           <iconset resource="app_ui_res.qrc">
+            <normaloff>:/Icons/icons/file-plus.svg</normaloff>:/Icons/icons/file-plus.svg</iconset>
           </property>
          </widget>
         </item>
@@ -202,8 +205,8 @@
            <string>...</string>
           </property>
           <property name="icon">
-           <iconset>
-            <normaloff>:/icons/icons/help-circle.svg</normaloff>:/icons/icons/help-circle.svg</iconset>
+           <iconset resource="app_ui_res.qrc">
+            <normaloff>:/Icons/icons/help-circle.svg</normaloff>:/Icons/icons/help-circle.svg</iconset>
           </property>
          </widget>
         </item>
@@ -297,7 +300,7 @@
   </action>
  </widget>
  <resources>
-  <include location="images.qrc"/>
+  <include location="app_ui_res.qrc"/>
  </resources>
  <connections/>
 </ui>
