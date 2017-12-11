@@ -1,10 +1,13 @@
 # System / 3rd party lib imports
 from PyQt5 import QtWidgets
 from PyQt5.QtGui import QFontMetrics, QFont
+from pathlib import Path
+import webbrowser
 import sys
 
 # Custom / Local imports
-from lib.qt import utils
+from lib import fs
+from lib.qt import qt_utils
 from lib.qt.tab_handler import tab_handler
 from lib.qt.py_syntax_highlighter import python_syntax_highlighter
 sys.path.append("res/qt")  # Add res/qt to module path
@@ -24,7 +27,7 @@ class IDE_main_app(Ui_MainWindow):
 		font.setPointSize(10)
 		self.main_editor.setFont(font)
 
-		# Setup font width and setup width of tab character
+		# Setup width of tab character
 		fontWidth = QFontMetrics(font).averageCharWidth()
 		self.main_editor.setTabStopWidth(4 * fontWidth)
 
@@ -34,6 +37,30 @@ class IDE_main_app(Ui_MainWindow):
 
 		# Connect buttons to actions
 		self.new_file_btn.clicked.connect(self.tab_handler.new_tab)
+		self.load_py_btn.clicked.connect(lambda x: self.open_new_file())
+		self.load_hex_btn.clicked.connect(lambda x: self.open_new_file("*.hex"))
+		# self.save_py_btn.clicked.connect()
+		# self.save_hex_btn.clicked.connect()
+		self.help_btn.clicked.connect(self.open_help)
+	
+	def open_new_file(self, f_type="*.py *.pyw"):
+		filename = fs.file_dialouge(f_type)
+		if not filename:
+			return  # Do nothing
+		if "py" in f_type:
+			file_text = fs.open_from_py(filename)
+		elif "hex" in f_type:
+			file_text = fs.open_from_hex(filename)
+		else:
+			return
+		p = Path(filename)
+		self.tab_handler.new_tab(p.name, file_text)
+	
+	def save_to_file(self):
+		pass
+	
+	def open_help(self):
+		webbrowser.open("https://microbit-micropython.readthedocs.io/en/latest/")
 
 if __name__ == "__main__":
 	app = QtWidgets.QApplication(sys.argv)
