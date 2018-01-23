@@ -6,28 +6,22 @@ def de_compile(file_path):
     first = True
 
     with open(file_path, "rb") as f:
-        # Skips firmware.hex
-        data = f.readlines()[13589:-2]
+        # Skips firmware
+        data = f.readlines()[15154:-2]
 
     for record in data:
-        if first:
-            # Check for MP headers then ignore MP headers
-            if record[9:13] != b"4D50":
-                return False
-            data = record[17:-2]
-            first = False
-        else:
-            data = record[9:-2]
-        chunk = []
-        last = 0
-        for x in range(2, len(data), 2):
-            chunk.append(data[last:x])
-            last = x
-        for y in chunk:
-            c = chr(int(y.decode("utf-8"), 16))
+        last = 0        
+        record = record[9:-2]  # Remove everything except data section
+        for c in range(2, len(record), 2):
+            char = record[last:c]
+            last = c
+            c = chr(int(char.decode("utf-8"), 16))
             if c != None:
                 output += c
-    return output
+    
+    if output[0:2] != "MP":
+        return False
+    return output[2:]
 
 if __name__ == "__main__":
     """

@@ -1,4 +1,5 @@
 from PyQt5.QtWidgets import QMessageBox
+import sys
 
 """
 Creates a Qt popup window with these properties:

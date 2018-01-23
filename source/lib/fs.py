@@ -11,8 +11,7 @@ def save_to_py(filename, script):
         outpy.write(script)
 
 def open_from_hex(filename):
-    with open(filename, "rb") as openhex:
-        return de_compile(openhex.read())
+    return de_compile(filename)
 
 def open_from_py(filename):
     with open(filename, "r") as openpy:

@@ -258,6 +258,12 @@
           <height>0</height>
          </size>
         </property>
+        <property name="font">
+         <font>
+          <family>Courier</family>
+          <pointsize>10</pointsize>
+         </font>
+        </property>
         <property name="styleSheet">
          <string notr="true">background-color: rgb(38,50,56); color: white;</string>
         </property>
@@ -265,7 +271,7 @@
          <enum>QPlainTextEdit::NoWrap</enum>
         </property>
         <property name="tabStopWidth">
-         <number>40</number>
+         <number>32</number>
         </property>
        </widget>
       </item>

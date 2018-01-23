@@ -1,6 +1,6 @@
 """
 Update micropython.hex
-The hex is scraped from $urlwhich should be the 
+The hex is scraped from $url which should be the 
 latest version at all times
 """
 
@@ -14,7 +14,6 @@ def update_micropython_fw():
     firmware = r.text.split('<div id="firmware" style="display: none;">')[1]
     # Remove everything after & including the ending tags
     firmware = firmware.split("</div>")[0]
-
     # Save to micropython.hex
     with open("micropython.hex", "w") as f:
         f.write(firmware)
