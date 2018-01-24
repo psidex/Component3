@@ -25,13 +25,13 @@ class IDE_main_app(Ui_MainWindow):
 
 		# Connect buttons to actions
 		self.new_file_btn.clicked.connect(self.tab_handler.new_tab)
-		self.load_py_btn.clicked.connect(lambda: self.open_new_file())
+		self.load_py_btn.clicked.connect(lambda: self.open_new_file("*.py *.pyw"))
 		self.load_hex_btn.clicked.connect(lambda: self.open_new_file("*.hex"))
-		# self.save_py_btn.clicked.connect()
-		# self.save_hex_btn.clicked.connect()
+		self.save_py_btn.clicked.connect(lambda: self.save_to_file("py"))
+		self.save_hex_btn.clicked.connect(self.save_to_file)
 		self.help_btn.clicked.connect(self.open_help)
 	
-	def open_new_file(self, f_type="*.py *.pyw"):
+	def open_new_file(self, f_type):
 		filename = fs.file_dialouge(f_type)
 		if not filename:
 			return  # Do nothing
@@ -43,8 +43,12 @@ class IDE_main_app(Ui_MainWindow):
 			return
 		self.tab_handler.new_tab(Path(filename).name, file_text)
 	
-	def save_to_file(self):
-		pass
+	def save_to_file(self, f_type):
+		filename, filetext = self.tab_handler.get_current_tab()
+		if f_type == "py":
+			fs.save_to_py(filename, filetext)
+		else:
+			fs.save_to_hex(filename, filetext)
 	
 	def open_help(self):
 		webbrowser.open("https://microbit-micropython.readthedocs.io/en/latest/")

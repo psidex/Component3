@@ -3,11 +3,11 @@ from .py_hex.compiler import compile_to_hex
 from .py_hex.de_compiler import de_compile
 
 def save_to_hex(filename, script):
-    with open(filename, "wb") as outhex:
-        outhex.write(compile_to_hex(script))
+    with open(filename+".hex", "wb") as outhex:
+        outhex.write(compile_to_hex(script.encode("utf-8")))
 
 def save_to_py(filename, script):
-    with open(filename, "w") as outpy:
+    with open(filename+".py", "w") as outpy:
         outpy.write(script)
 
 def open_from_hex(filename):

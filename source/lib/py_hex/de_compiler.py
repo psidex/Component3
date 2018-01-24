@@ -10,18 +10,24 @@ def de_compile(file_path):
         data = f.readlines()[15154:-2]
 
     for record in data:
-        last = 0        
         record = record[9:-2]  # Remove everything except data section
-        for c in range(2, len(record), 2):
-            char = record[last:c]
-            last = c
-            c = chr(int(char.decode("utf-8"), 16))
-            if c != None:
-                output += c
+
+        if first:
+            # Check for MP headers
+            if record[0:4] != b"4D50":
+                return False
+            record = record[8:]  # Get rid of MP headers
+            first = False
+
+        last = 0
+        for i in range(2, len(record), 2):
+            char_num = record[last:i]
+            last = i
+            if char_num != b"00":  # Ignore padding
+                char = chr(int(char_num.decode("utf-8"), 16))
+                output += char
     
-    if output[0:2] != "MP":
-        return False
-    return output[2:]
+    return output
 
 if __name__ == "__main__":
     """

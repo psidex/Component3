@@ -1,45 +1,46 @@
-def compile_to_hex(script):
-    """
-    Creates an array that contains the necessary things to be compiled, then, 16
-    at a time, pull values from that array and convert them to Intel HEX format,
-    when finished, insert the script into firmware.hex and return it as encoded
-    data. Returns False if failed
-    """
-    script_size = len(script)
+"""
+TO FIX
+Compiling is missing the last bracket and \n in this script:
+```
+from microbit import *
 
+while True:
+    display.scroll("1234")
+    sleep(500)
+
+```
+"""
+
+def compile_to_hex(script_bin):
+    script_size = len(script_bin)
     if script_size > 0x2000:
         return False
 
     addr = 0x3e000  # Magic start address for inserted code
-    output = []  # Final output
-    data = [0] * 4
-    data[0] = 77  # "MicroPython signature"
-    data[1] = 80  # ^
-    data[2] = script_size & 0xFF         # Low byte of script length
-    data[3] = (script_size >> 8) & 0xFF  # High byte
+    output = []     # Final output
+    offset = 0      # Location in script
 
-    for i, char_val in enumerate(script):
-        data.append(char_val)  # Append every char value to data array
+    # Prepend header + low + high bytes of script length
+    script_bin = b"\x4D\x50" + bytes([script_size & 0xFF]) + bytes([(script_size >> 8) & 0xFF]) + script_bin
 
-    # Pad out array with 0's so the last chunk will have the correct length
-    data = data + [b for b in bytes(16 - len(data) % 16)]
+    for i in range(0, script_size, 16):
+        record = []
+        record.append(0x10)                # Len of data section
+        record.append((addr >> 8) & 0xff)  # High byte of address
+        record.append(addr & 0xff)         # Low byte
+        record.append(0x0)                 # Data type
+        for i in range(16):                # 16 chars from script
+            try:
+                record.append(script_bin[offset + i])
+            except IndexError:
+                record.append(0x00)  # Script finished, pad with 0s
+        # Checksum - twos complement of record+, then get low byte
+        record.append(((sum(record) ^ 0xFF) + 0x1) & 0xFF)
+        output.append(":" + "".join("{:02x}".format(x) for x in record).upper())
+        addr += 16    # Next address
+        offset += 16  # Next script location
 
-    # Create chunks
-    for i in range(0, len(data), 16):
-        chunk = []        # New record
-        chunk.append(16)  # len of data section in bytes
-        chunk.append((addr >> 8) & 0xff)  # High byte of address
-        chunk.append(addr & 0xff)         # Low byte
-        chunk.append(0)      # Data type
-        for j in range(16):  # Get the next 16 chars from the data array
-            chunk.append(data[i + j])
-        # Checksum - The low byte of the negative of the sum of the chunk
-        chunk.append((-sum(chunk)) & 0xFF)
-        # ":" + (Array of ints -> string of hex values)
-        output.append(":" + "".join("{:02x}".format(x) for x in chunk).upper())
-        addr += 16  # Next address
-
-    with open("micropython.hex", "r") as fw:
+    with open("res/micropython/micropython.hex", "r") as fw:
         data = fw.read()
     insertion_point = ":::::::::::::::::::::::::::::::::::::::::::"
     data = data.replace(insertion_point, "\n".join(output))
