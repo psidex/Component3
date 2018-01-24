@@ -9,6 +9,9 @@ while True:
     sleep(500)
 
 ```
+Mightbe because the script needs to be padded
+with 0's before it is iterated over to produce
+the .hex
 """
 
 def compile_to_hex(script_bin):
