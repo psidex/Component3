@@ -11,7 +11,7 @@ def compile_to_hex(script_bin):
     script_bin = b"\x4D\x50" + bytes([script_size & 0xFF]) + bytes([(script_size >> 8) & 0xFF]) + script_bin
     # Pad with trailing 0x00s (so len is a multiple of 16)
     script_bin += b"\x00" * (16 - (len(script_bin) % 16))
-    
+
     for i in range(0, len(script_bin), 16):
         record = []
         record.append(0x10)                # Len of data section
@@ -19,7 +19,7 @@ def compile_to_hex(script_bin):
         record.append(addr & 0xff)         # Low byte
         record.append(0x0)                 # Data type
         for i in range(16):                # 16 chars from script
-            record.append(script_bin[offset + i])
+            record.append(script_bin[offset + i])        
         # Checksum - twos complement of record, then get low byte
         record.append(((sum(record) ^ 0xFF) + 0x1) & 0xFF)
         # Format record as a string of hex characters
