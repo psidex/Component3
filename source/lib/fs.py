@@ -17,5 +17,9 @@ def open_from_py(filename):
     with open(filename, "r") as openpy:
         return openpy.read()
 
-def file_dialouge(types):
+def open_file_dialouge(types):
     return QFileDialog.getOpenFileName(caption="Open file", directory="/home", filter=types)[0]
+
+def save_file_dialouge(current_filename):
+    return 
+    # Should return current_filename (changed or not) and the path to the file

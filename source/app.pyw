@@ -32,7 +32,7 @@ class IDE_main_app(Ui_MainWindow):
 		self.help_btn.clicked.connect(self.open_help)
 	
 	def open_new_file(self, f_type):
-		filename = fs.file_dialouge(f_type)
+		filename = fs.open_file_dialouge(f_type)
 		if not filename:
 			return  # Do nothing
 		if "py" in f_type:
@@ -45,6 +45,7 @@ class IDE_main_app(Ui_MainWindow):
 	
 	def save_to_file(self, f_type):
 		filename, filetext = self.tab_handler.get_current_tab()
+		filename, path = fs.save_file_dialouge(filename)
 		if f_type == "py":
 			fs.save_to_py(filename, filetext)
 		else:
