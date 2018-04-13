@@ -2,12 +2,12 @@ from PyQt5.QtWidgets import QFileDialog
 from .py_hex.compiler import compile_to_hex
 from .py_hex.de_compiler import de_compile
 
-def save_to_hex(filename, script):
-    with open(filename+".hex", "wb") as outhex:
+def save_to_hex(path, script):
+    with open(path, "wb") as outhex:
         outhex.write(compile_to_hex(script.encode("utf-8")))
 
-def save_to_py(filename, script):
-    with open(filename+".py", "w") as outpy:
+def save_to_py(path, script):
+    with open(path, "w") as outpy:
         outpy.write(script)
 
 def open_from_hex(filename):
@@ -20,6 +20,5 @@ def open_from_py(filename):
 def open_file_dialouge(types):
     return QFileDialog.getOpenFileName(caption="Open file", directory="/home", filter=types)[0]
 
-def save_file_dialouge(current_filename):
-    return 
-    # Should return current_filename (changed or not) and the path to the file
+def save_file_dialouge(types):
+    return QFileDialog.getSaveFileName(caption="Save file", directory="/home", filter=types)[0]
