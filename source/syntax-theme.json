@@ -1,4 +1,6 @@
 {
+    "background": "38,50,56",
+    "default": "255,255,255",
     "keyword": "153,137,234",
     "boolean": "234,61,61",
     "comparators-arithmetic-bitwise": "199,146,234",

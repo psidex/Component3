@@ -3,6 +3,7 @@ from PyQt5 import QtWidgets
 from PyQt5.QtGui import QFontMetrics, QFont
 from pathlib import Path
 import webbrowser
+import json
 import sys
 
 # Custom / Local imports
@@ -20,6 +21,13 @@ class IDE_main_app(Ui_MainWindow):
 		self.setup_editor()
 	
 	def setup_editor(self):
+		# Load theme and set background / default text
+		themeDict = json.load(open("syntax-theme.json"))
+		self.main_editor.setStyleSheet("background-color: rgb({}); color: rgb({});".format(
+			themeDict["background"],
+			themeDict["default"]
+		))
+
 		self.highlighter = python_syntax_highlighter(self.main_editor.document())
 		self.tab_handler = tab_handler(self.editor_tabs, self.main_editor)
 
