@@ -21,8 +21,13 @@ class IDE_main_app(Ui_MainWindow):
 		self.setup_editor()
 	
 	def setup_editor(self):
+
 		# Load theme and set background / default text
-		themeDict = json.load(open("syntax-theme.json"))
+		try:
+			themeDict = json.load(open("theme.json"))
+		except FileNotFoundError:
+			qt_utils.popup("Error", "Theme file not found error", "Cannot find theme.json, exiting", exit=True)
+
 		self.main_editor.setStyleSheet("background-color: rgb({}); color: rgb({});".format(
 			themeDict["background"],
 			themeDict["default"]

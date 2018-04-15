@@ -27,7 +27,7 @@ comparators_arithmetic_bitwise = [
 class python_syntax_highlighter(QSyntaxHighlighter):
     def __init__(self, document):
         # Load theme
-        themeDict = json.load(open("syntax-theme.json"))
+        themeDict = json.load(open("theme.json"))
 
         # Init highlighter with given text document
         QSyntaxHighlighter.__init__(self, document)
