@@ -1,3 +1,4 @@
+import json
 from PyQt5.QtCore import QRegExp
 from PyQt5.QtGui import QSyntaxHighlighter, QColor, QTextCharFormat, QFont
 
@@ -25,6 +26,9 @@ comparators_arithmetic_bitwise = [
 
 class python_syntax_highlighter(QSyntaxHighlighter):
     def __init__(self, document):
+        # Load theme
+        themeDict = json.load(open("syntax-theme.json"))
+
         # Init highlighter with given text document
         QSyntaxHighlighter.__init__(self, document)
 
@@ -37,7 +41,7 @@ class python_syntax_highlighter(QSyntaxHighlighter):
         # Keywords
         k_format = QTextCharFormat()
         k_colour = QColor()
-        k_colour.setRgb(153, 137, 234)
+        k_colour.setRgb(*[int(i) for i in themeDict["keyword"].split(",")])
         k_format.setForeground(k_colour)
         k_format.setFontWeight(QFont.Bold)
         for word in keywords:
@@ -47,7 +51,7 @@ class python_syntax_highlighter(QSyntaxHighlighter):
         # Boolean
         b_format = QTextCharFormat()
         b_colour = QColor()
-        b_colour.setRgb(234, 61, 61)
+        b_colour.setRgb(*[int(i) for i in themeDict["boolean"].split(",")])
         b_format.setForeground(b_colour)
         for word in boolean:
             pattern = QRegExp("\\b" + word + "\\b")
@@ -56,7 +60,7 @@ class python_syntax_highlighter(QSyntaxHighlighter):
         # Comparators, arithmetic & bitwise
         cab_format = QTextCharFormat()
         cab_colour = QColor()
-        cab_colour.setRgb(199, 146, 234)
+        cab_colour.setRgb(*[int(i) for i in themeDict["comparators-arithmetic-bitwise"].split(",")])
         cab_format.setForeground(cab_colour)
         for symbol in comparators_arithmetic_bitwise:
             pattern = QRegExp("\\"+symbol)
@@ -64,14 +68,14 @@ class python_syntax_highlighter(QSyntaxHighlighter):
 
         num_format = QTextCharFormat()
         num_colour = QColor()
-        num_colour.setNamedColor("darkorange")
+        num_colour.setRgb(*[int(i) for i in themeDict["number"].split(",")])
         num_format.setForeground(num_colour)
         num_pattern = QRegExp("[0-9]")
         hex_pattern = QRegExp("0[xX][0-9a-fA-F]+")
 
         self.string_format = QTextCharFormat()
         s_colour = QColor()
-        s_colour.setRgb(124, 179, 41)
+        s_colour.setRgb(*[int(i) for i in themeDict["string"].split(",")])
         self.string_format.setForeground(s_colour)
 
         s_pattern1 = QRegExp( '\".*\"' )
@@ -82,13 +86,13 @@ class python_syntax_highlighter(QSyntaxHighlighter):
 
         func_format = QTextCharFormat()
         func_colour = QColor()
-        func_colour.setNamedColor("lightsteelblue")
+        func_colour.setRgb(*[int(i) for i in themeDict["function"].split(",")])
         func_format.setForeground(func_colour)
         func_patten = QRegExp("([\w\-]+)(?=\()")
 
         comment_format = QTextCharFormat()
         comment_colour = QColor()
-        comment_colour.setNamedColor("grey")
+        comment_colour.setRgb(*[int(i) for i in themeDict["comment"].split(",")])
         comment_format.setForeground(comment_colour)
         comment_pattern = QRegExp("\#.*")
 
