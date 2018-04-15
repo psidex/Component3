@@ -46,16 +46,19 @@ class IDE_main_app(Ui_MainWindow):
 	
 	def save_to_file(self, *args, f_type="*.hex"):
 		filename, filetext = self.tab_handler.get_current_tab()
-		path = fs.save_file_dialouge(f_type)
-		if not path:
-			return
-		if "py" in f_type:
-			fs.save_to_py(path, filetext)
-		elif "hex" in f_type:
-			fs.save_to_hex(path, filetext)
+		if "hex" in f_type and len(filetext) > 8192:
+			qt_utils.popup("Error", "Hex file size error", "Hex files file cannot be longer than 8192 characters. Your file is currently {} characters".format(len(filetext)))
 		else:
-			return
-		qt_utils.popup("Info", "File Saved!", "{} has been saved to {}".format(filename, path))
+			path = fs.save_file_dialouge(f_type)
+			if not path:
+				return
+			if "py" in f_type:
+				fs.save_to_py(path, filetext)
+			elif "hex" in f_type:
+				fs.save_to_hex(path, filetext)
+			else:
+				return
+			qt_utils.popup("Info", "File Saved!", "{} has been saved to {}".format(filename, path))
 	
 	def open_help(self):
 		webbrowser.open("https://microbit-micropython.readthedocs.io/en/latest/")
