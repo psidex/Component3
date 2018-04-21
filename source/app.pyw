@@ -31,7 +31,7 @@ class IDE_main_app(Ui_MainWindow):
 		if all(k in themeDict for k in ("background","default","keyword","boolean","comparators-arithmetic-bitwise","number","string","function","comment")):
 			pass
 		else:
-			qt_utils.popup("Error", "Theme file does not contain all keys", "theme.json does not contain all needed keys, exiting", exit=True)o
+			qt_utils.popup("Error", "Theme file does not contain all keys", "theme.json does not contain all needed keys, exiting", exit=True)
     	
 		self.main_editor.setStyleSheet("background-color: rgb({}); color: rgb({});".format(
 			themeDict["background"],
