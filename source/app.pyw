@@ -27,7 +27,12 @@ class IDE_main_app(Ui_MainWindow):
 			themeDict = json.load(open("theme.json"))
 		except FileNotFoundError:
 			qt_utils.popup("Error", "Theme file not found error", "Cannot find theme.json, exiting", exit=True)
-
+		
+		if all(k in themeDict for k in ("background","default","keyword","boolean","comparators-arithmetic-bitwise","number","string","function","comment")):
+			pass
+		else:
+			qt_utils.popup("Error", "Theme file does not contain all keys", "theme.json does not contain all needed keys, exiting", exit=True)o
+    	
 		self.main_editor.setStyleSheet("background-color: rgb({}); color: rgb({});".format(
 			themeDict["background"],
 			themeDict["default"]
