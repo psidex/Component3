@@ -10,11 +10,11 @@ def save_to_py(path, script):
     with open(path, "w") as outpy:
         outpy.write(script)
 
-def open_from_hex(filename):
-    return de_compile(filename)
+def open_from_hex(path):
+    return de_compile(path)
 
-def open_from_py(filename):
-    with open(filename, "r") as openpy:
+def open_from_py(path):
+    with open(path, "r") as openpy:
         return openpy.read()
 
 def open_file_dialouge(types):
