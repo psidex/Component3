@@ -1,5 +1,9 @@
 # Component_3 - BBC Micro:Bit Python IDE
 
+The final product:
+
+![image](images/image.png)
+
 ## res -> py
 
 `pyuic5 file.ui -o file.py`
@@ -22,13 +26,3 @@ http://carsonfarmer.com/2009/07/syntax-highlighting-with-pyqt/
 https://regex101.com/
 http://www.rexegg.com/regex-quickstart.html
 http://www.december.com/html/spec/colorsvg.html
-
-## ToDo (not in any order)
-
- - ~~Implement regex from above~~
- - Add & finish all buttons
- - Look into word-completion
- - Inserting tabs when enter is pressed
- - Look into line numbers
- - Test generated .hex with real microbit
- - Look into Flashing, REPL, & viewing microbit's internal files
