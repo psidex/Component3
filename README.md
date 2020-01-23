@@ -1,4 +1,4 @@
-# Component_3 - BBC Micro:Bit Python IDE
+# Component3 - BBC Micro:Bit Python Code Editor
 
 The final product:
 
